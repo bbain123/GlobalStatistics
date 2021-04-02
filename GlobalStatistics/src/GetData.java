@@ -7,13 +7,20 @@ import com.google.gson.JsonParser;
 
 public class GetData {
 
-	public static void main(String[] args) {
+	
+	public float[] getValues(Analysis analysis, String analysisCode) {
 
+		int valueForYear = 0;
+		int range = analysis.getSelection().getEndYear() - analysis.getSelection().getStartYear() + 1;
+		float[] values = new float[range];
+		
+		
 		String urlString = String.format(
-				"http://api.worldbank.org/v2/country/%s/indicator/SP.POP.TOTL?date=1994:2001&format=json", "can");
-		System.out.println(urlString);
-		int populationForYear = 0;
-		int cummulativePopulation = 0;
+				"http://api.worldbank.org/v2/country/" + analysis.getSelection().getCountry() +"/indicator/"+ 
+				analysisCode +"?date="+ analysis.getSelection().getStartYear() + ":"+ analysis.getSelection().getEndYear() +"&format=json");
+		//System.out.println(urlString);
+		
+		
 		try {
 			URL url = new URL(urlString);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -34,24 +41,26 @@ public class GetData {
 				for (int i = 0; i < sizeOfResults; i++) {
 					year = jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("date").getAsInt();
 					if (jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("value").isJsonNull())
-						populationForYear = 0;
+						valueForYear = 0;
 					else
-						populationForYear = jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("value")
+						valueForYear = jsonArray.get(1).getAsJsonArray().get(i).getAsJsonObject().get("value")
 								.getAsInt();
 
-					System.out.println("Population for : " + year + " is " + populationForYear);
-					cummulativePopulation = cummulativePopulation + populationForYear;
+					System.out.println("Population for : " + year + " is " + valueForYear +" and i = " + i);
+					values[i] = valueForYear;
+					
 				}
 				System.out.println(
-						"The average population over the selected years is " + cummulativePopulation / sizeOfResults);
+						"The average population over the selected years is NEVERMIND" );
 			}
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block e.printStackTrace();
 		}
 
-		return;
+		return null;
 	}
+	
 
 }
 

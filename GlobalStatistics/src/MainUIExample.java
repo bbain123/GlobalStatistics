@@ -4,10 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
-import java.awt.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -41,31 +38,26 @@ import org.jfree.data.time.Year;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class MainUI extends JFrame implements ActionListener {
+public class MainUIExample extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2L;
 
-	private static MainUI instance;
-	private Selection currSelection;
+	private static MainUIExample instance;
 
-	public static MainUI getInstance() {
+	public static MainUIExample getInstance() {
 		if (instance == null)
-			instance = new MainUI();
+			instance = new MainUIExample();
 
 		return instance;
 	}
-	
-	public void actionPerformed(ActionEvent e) {
-	}
-	
 
-	private MainUI() {
+	private MainUIExample() {
 		// Set window title
 		super("Country Statistics");
 
-		//COUNTRY BOX
+		// Set top bar
 		JLabel chooseCountryLabel = new JLabel("Choose a country: ");
 		Vector<String> countriesNames = new Vector<String>();
 		countriesNames.add("USA");
@@ -75,10 +67,7 @@ public class MainUI extends JFrame implements ActionListener {
 		countriesNames.add("Brazil");
 		countriesNames.sort(null);
 		JComboBox<String> countriesList = new JComboBox<String>(countriesNames);
-		countriesList.addActionListener(this);
 
-		
-		//START AND END YEAR BOXES
 		JLabel from = new JLabel("From");
 		JLabel to = new JLabel("To");
 		Vector<String> years = new Vector<String>();
@@ -86,11 +75,8 @@ public class MainUI extends JFrame implements ActionListener {
 			years.add("" + i);
 		}
 		JComboBox<String> fromList = new JComboBox<String>(years);
-		fromList.addActionListener(this);
 		JComboBox<String> toList = new JComboBox<String>(years);
-		toList.addActionListener(this);
 
-		//Add Country box and years to top
 		JPanel north = new JPanel();
 		north.add(chooseCountryLabel);
 		north.add(countriesList);
@@ -99,9 +85,8 @@ public class MainUI extends JFrame implements ActionListener {
 		north.add(to);
 		north.add(toList);
 
-		//RECALCULATE BUTTON
+		// Set bottom bar
 		JButton recalculate = new JButton("Recalculate");
-		recalculate.addActionListener(this);
 
 		JLabel viewsLabel = new JLabel("Available Views: ");
 
