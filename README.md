@@ -1,4 +1,6 @@
 # GlobalStatistics
+Statistics sourced from https://www.worldbank.org/en/home  
+gathered through https://api.worldbank.org/v2  
 A GUI for health statistics across 9 Countries: 
 - Canada
 - USA
